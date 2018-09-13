@@ -29,3 +29,5 @@ var isIsomorphic = function (s, t) {
   }
   return true;
 };
+
+// could improve time complexity by putting values into a set rather than checking values with .includes()
