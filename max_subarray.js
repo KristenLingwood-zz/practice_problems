@@ -11,6 +11,7 @@
  * @return {number}
  */
 
+// only need to keep track of the max sum, so as i increases, if the max sum is bigger we change it to sum + nums[i], otherwise we reset the sum to the current element nums[i]
 var maxSubArray = function(nums) {
   let maxSum = nums[0];
   let sum = nums[0];
@@ -21,4 +22,21 @@ var maxSubArray = function(nums) {
   return maxSum;
 };
 
-// only need to keep track of the max sum, so as i increases, if the max sum is bigger we change it to sum + nums[i], otherwise we reset the sum to the current element nums[i]
+// Variation: Allow function to accept a specified length of subarray (above function assumes length of 1)
+
+function maxSubarraySum(arr, target) {
+  if (target > arr.length) return null;
+  let maxSum = 0;
+
+  // find initial sum from idx 0 to idx target-1
+  for (let i = 0; i < target; i++) {
+    maxSum += arr[i];
+  }
+  let currentTotal = maxSum;
+  // find new subarray sums by adding the next idx, subtracting the first. Then compare to maxSum and keep track of the higher val.
+  for (let i = target; i < arr.length; i++) {
+    currentTotal += arr[i] - arr[i - target];
+    maxSum = Math.max(maxSum, currentTotal);
+  }
+  return maxSum;
+}
